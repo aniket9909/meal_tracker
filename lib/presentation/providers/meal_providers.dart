@@ -12,12 +12,22 @@ final mealRepositoryProvider = Provider(
   (ref) => MealRepositoryImpl(ref.read(mealLocalDataSourceProvider)),
 );
 
-final getMealsProvider = Provider((ref) => GetMeals(ref.read(mealRepositoryProvider)));
-final addMealProvider = Provider((ref) => AddMeal(ref.read(mealRepositoryProvider)));
-final searchMealsProvider = Provider((ref) => SearchMeals(ref.read(mealRepositoryProvider)));
-final deleteMealProvider = Provider((ref) => DeleteMeal(ref.read(mealRepositoryProvider)));
+final getMealsProvider = Provider(
+  (ref) => GetMeals(ref.read(mealRepositoryProvider)),
+);
+final addMealProvider = Provider(
+  (ref) => AddMeal(ref.read(mealRepositoryProvider)),
+);
+final searchMealsProvider = Provider(
+  (ref) => SearchMeals(ref.read(mealRepositoryProvider)),
+);
+final deleteMealProvider = Provider(
+  (ref) => DeleteMeal(ref.read(mealRepositoryProvider)),
+);
 
-final mealsListProvider = StateNotifierProvider<MealsNotifier, List<Meal>>((ref) {
+final mealsListProvider = StateNotifierProvider<MealsNotifier, List<Meal>>((
+  ref,
+) {
   return MealsNotifier(
     getMeals: ref.read(getMealsProvider),
     searchMeals: ref.read(searchMealsProvider),
@@ -27,7 +37,8 @@ final mealsListProvider = StateNotifierProvider<MealsNotifier, List<Meal>>((ref)
 class MealsNotifier extends StateNotifier<List<Meal>> {
   final GetMeals getMeals;
   final SearchMeals searchMeals;
-  MealsNotifier({required this.getMeals, required this.searchMeals}) : super([]) {
+  MealsNotifier({required this.getMeals, required this.searchMeals})
+    : super([]) {
     loadMeals();
   }
 
